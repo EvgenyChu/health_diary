@@ -3,4 +3,15 @@
 
     //StartScreen
     <string name="start_title">Дневник здоровья</string>
+
+    //MainScreen
+    <string name="SYS">SYS.</string>
+    <string name="DIA">DIA.</string>
+    <string name="PUL">PUL.</string>
+    <string name="mmHg">mmHg</string>
+    <string name="SYS_full_text">Систолическое (верхнее) давление</string>
+    <string name="DIA_full_text">Диастолическое (нижнее) давление</string>
+    <string name="PUL_full_text">Частота сердечных сокращений (пульс)</string>
+    <string name="text_empty_content">Для того, чтобы начать вести дневник наблюдения за артериальным давлением, добавьте первые измерения</string>
+
 </resources>

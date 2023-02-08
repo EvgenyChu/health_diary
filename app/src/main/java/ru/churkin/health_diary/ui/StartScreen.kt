@@ -1,5 +1,6 @@
 package ru.churkin.health_diary.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -15,7 +16,7 @@ import ru.churkin.health_diary.R
 @Composable
 fun StartScreen(){
 Column(
-    modifier = Modifier.fillMaxSize(),
+    modifier = Modifier.fillMaxSize().background(color = MaterialTheme.colors.background),
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.Center
 ) {
