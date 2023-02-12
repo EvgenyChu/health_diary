@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.churkin.health_diary.modelData.Diary
-import ru.churkin.health_diary.modelData.User
+import ru.churkin.health_diary.db.entity.UserEntity
 
 class MainViewModel : ViewModel() {
     private val _state = MutableStateFlow(MainState())
@@ -26,7 +26,7 @@ class MainViewModel : ViewModel() {
 }
 
 data class MainState(
-    val user: User? = null,
+    val user: UserEntity? = null,
     val screen: MainScreen = MainScreen.Loading
 )
 
