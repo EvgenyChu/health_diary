@@ -15,7 +15,7 @@ class RootViewModel : ViewModel(){
 
     init {
         viewModelScope.launch {
-            delay(2000)
+            delay(5000)
             _state.update { it.copy(splashShown = false) }
         }
     }

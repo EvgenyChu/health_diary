@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -28,43 +27,20 @@ import ru.churkin.health_diary.ui.componentsUI.TopBar
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun MainViewScreen(
-    vm: MainViewModel = viewModel()
+fun UserEnterScreen(
+    vm: UserEnterViewModel = viewModel()
 ) {
-    val state: MainState by vm.state.collectAsState()
+    val state: UserEnterState by vm.state.collectAsState()
+
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,
-        topBar = {
-            TopBar { }
-        },
-        floatingActionButton = {
-            ActionButton() {}
-        }
     ) {
         when (val screen = state.screen) {
-            is MainScreen.Loading -> Loading()
-            is MainScreen.EmptyList -> {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.text_empty_content),
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.h2,
-                        color = MaterialTheme.colors.onBackground
-                    )
-                }
-            }
-            is MainScreen.MainView -> {
-                LazyColumn() {
-                    items(items = screen.listDiary, { it.id }) { diary ->
-                        DiaryCard(diary = diary)
-                    }
-                }
+            is UserEnterScreen.Loading -> Loading()
+            is UserEnterScreen.UserEnterView -> {
+               Column(){
+
+               }
             }
         }
     }

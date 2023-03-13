@@ -16,8 +16,8 @@ fun ActionButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
-    val colorBacActive = MaterialTheme.colors.secondary
-    val colorTint = MaterialTheme.colors.onSecondary
+    val colorBacActive = MaterialTheme.colors.primary
+    val colorTint = MaterialTheme.colors.onPrimary
     FloatingActionButton(
         modifier = modifier
             .size(80.dp),
