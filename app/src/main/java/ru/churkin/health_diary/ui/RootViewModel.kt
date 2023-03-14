@@ -2,25 +2,33 @@ package ru.churkin.health_diary.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import ru.churkin.health_diary.repositories.UserRepository
+import javax.inject.Inject
 
-class RootViewModel : ViewModel(){
+@HiltViewModel
+class RootViewModel @Inject constructor(
+    private val repository: UserRepository
+) : ViewModel() {
     private val _state = MutableStateFlow(RootState())
     val state = _state.asStateFlow()
     val currentState = _state.value
 
     init {
         viewModelScope.launch {
+            val hasUser = repository.getAllUser().isNotEmpty()
             delay(3500)
-            _state.update { it.copy(splashShown = false) }
+            _state.update { it.copy(splashShown = false, hasUser = hasUser) }
         }
     }
 }
 
 data class RootState(
-    val splashShown: Boolean = true
+    val splashShown: Boolean = true,
+    val hasUser: Boolean = false
 )

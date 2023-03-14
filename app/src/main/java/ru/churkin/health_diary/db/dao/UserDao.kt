@@ -15,7 +15,15 @@ interface UserDao {
     fun delete(user: UserEntity)
 
     @Query(""" SELECT * FROM users """)
-    fun getAll(): List<UserEntity>
+    suspend fun getAll(): List<UserEntity>
+
+    @Query(
+        """ 
+        SELECT * FROM users 
+        WHERE isActive = 1
+        """
+    )
+    suspend fun getActiveUser(): UserEntity
 
     @Query(""" DELETE FROM users WHERE userId = :id """)
     suspend fun delete(id: Int)

@@ -52,8 +52,7 @@ LaunchedEffect(key1 = Unit){
                 AnimatedVisibility(
                     visible = visible,
                     enter = expandHorizontally(expandFrom = Alignment.End, animationSpec = tween(2000)),
-                    exit = slideOutHorizontally(targetOffsetX = { fullWidth -> fullWidth })
-                            + shrinkHorizontally() + fadeOut(),
+                    exit = fadeOut(),
                 ) {
                     Image(
                         modifier = Modifier.size(210.dp).padding(start = 4.dp),

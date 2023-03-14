@@ -19,13 +19,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import ru.churkin.health_diary.ui.MainViewScreen
-import ru.churkin.health_diary.ui.RootState
-import ru.churkin.health_diary.ui.RootViewModel
-import ru.churkin.health_diary.ui.StartScreen
+import ru.churkin.health_diary.ui.*
 import ru.churkin.health_diary.ui.theme.AppTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val vm: RootViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +41,7 @@ class MainActivity : ComponentActivity() {
                         color = MaterialTheme.colors.background
                     ) {
                         Column(modifier = Modifier.fillMaxSize()) {
-                            NavigationHost(navController)
+                            NavigationHost(navController, state.hasUser)
                         }
                     }
                 }
@@ -52,12 +51,12 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     private fun NavigationHost(
-        navController: NavHostController
+        navController: NavHostController,
+        hasUser: Boolean
     ) {
-        NavHost(navController = navController, startDestination = "MainScreen") {
-            composable("MainScreen") {
-                MainViewScreen()
-            }
+        NavHost(navController = navController, startDestination = if (hasUser) "MainScreen" else "UserEnterScreen") {
+            composable("MainScreen") { MainViewScreen() }
+            composable("UserEnterScreen") { UserEnterScreen() }
         }
     }
 }

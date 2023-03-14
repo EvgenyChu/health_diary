@@ -14,6 +14,10 @@ import ru.churkin.health_diary.db.entity.UserEntity
     exportSchema = true,
 )
 
+@TypeConverters(
+    DateConverter::class,
+)
+
 abstract class AppDb : RoomDatabase() {
     companion object {
         const val DATABASE_NAME = BuildConfig.APPLICATION_ID + ".db"
