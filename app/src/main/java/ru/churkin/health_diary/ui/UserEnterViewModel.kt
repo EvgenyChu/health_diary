@@ -14,8 +14,11 @@ import ru.churkin.health_diary.modelData.Diary
 
 class UserEnterViewModel : ViewModel() {
     private val _state = MutableStateFlow(UserEnterState())
-    val state = _state
-    private val currentState = state.value
+
+    val state = _state.asStateFlow()
+
+    private val currentState: UserEnterState
+    get() = state.value
 
     init {
         Log.e("UserEnterViewModel", "init")
@@ -25,12 +28,25 @@ class UserEnterViewModel : ViewModel() {
         _state.value = currentState.copy(screen = UserEnterScreen.UserEnterView())
     }
 
+    private fun isEnterView() :  UserEnterScreen.UserEnterView? {
+        return if (currentState.screen !is UserEnterScreen.UserEnterView) null
+        else currentState.screen as UserEnterScreen.UserEnterView
+    }
+
     fun updateName(name: String) {
-        Log.e("UserEnterViewModel", "$name ${currentState.screen}")
-        if (currentState.screen !is UserEnterScreen.UserEnterView) return
-        val user = currentState.screen
+        val user = isEnterView() ?: return
         _state.value = currentState.copy(screen = user.copy(name = name))
         }
+
+    fun updateAge(age: String) {
+        val user = isEnterView() ?: return
+        _state.value = currentState.copy(screen = user.copy(age = age))
+    }
+
+    fun updateWeight(weight: String) {
+        val user = isEnterView() ?: return
+        _state.value = currentState.copy(screen = user.copy(weight = weight))
+    }
 }
 
 data class UserEnterState(
