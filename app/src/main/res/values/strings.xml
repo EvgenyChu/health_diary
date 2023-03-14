@@ -24,6 +24,10 @@
     //InfoField
     <string name="field_placeholder_not_necessary">Не обязательно</string>
 
+    //Button
+    <string name="button_add">Добавить</string>
+    <string name="button_clear">Очистить</string>
+
 
 
 

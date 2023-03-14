@@ -3,6 +3,7 @@ package ru.churkin.health_diary.ui
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,8 +12,13 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.churkin.health_diary.db.entity.UserEntity
 import ru.churkin.health_diary.modelData.Diary
+import ru.churkin.health_diary.repositories.UserRepository
+import javax.inject.Inject
 
-class UserEnterViewModel : ViewModel() {
+@HiltViewModel
+class UserEnterViewModel @Inject constructor(
+    private val repository: UserRepository
+) : ViewModel() {
     private val _state = MutableStateFlow(UserEnterState())
 
     val state = _state.asStateFlow()
@@ -46,6 +52,23 @@ class UserEnterViewModel : ViewModel() {
     fun updateWeight(weight: String) {
         val user = isEnterView() ?: return
         _state.value = currentState.copy(screen = user.copy(weight = weight))
+    }
+
+    fun saveUser() {
+        val screen = isEnterView() ?: return
+        val user = UserEntity(
+            userId = -1,
+            name = screen.name,
+            age = screen.age.toIntOrNull() ?: 0,
+            weight = screen.weight.toIntOrNull() ?: 0,
+            isActive = true
+        )
+        viewModelScope.launch { repository.addUser(user) }
+    }
+
+    fun clearScreen() {
+        isEnterView() ?: return
+        _state.value = currentState.copy(screen = UserEnterScreen.UserEnterView())
     }
 }
 

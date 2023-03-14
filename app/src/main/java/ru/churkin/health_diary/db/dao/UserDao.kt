@@ -1,15 +1,15 @@
 package ru.churkin.health_diary.db.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import ru.churkin.health_diary.db.entity.UserEntity
 
 @Dao
 interface UserDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAll(users: List<UserEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertUser(obj:UserEntity):Long
 
     @Delete
     fun delete(user: UserEntity)
@@ -23,7 +23,7 @@ interface UserDao {
         WHERE isActive = 1
         """
     )
-    suspend fun getActiveUser(): UserEntity
+    suspend fun getActiveUser(): UserEntity?
 
     @Query(""" DELETE FROM users WHERE userId = :id """)
     suspend fun delete(id: Int)

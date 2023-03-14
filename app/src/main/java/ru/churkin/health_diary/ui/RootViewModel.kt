@@ -21,7 +21,7 @@ class RootViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val hasUser = repository.getAllUser().isNotEmpty()
+            val hasUser = repository.getAllUsers().isNotEmpty()
             delay(3500)
             _state.update { it.copy(splashShown = false, hasUser = hasUser) }
         }

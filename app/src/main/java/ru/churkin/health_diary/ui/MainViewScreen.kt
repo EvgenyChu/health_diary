@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ru.churkin.health_diary.R
 import ru.churkin.health_diary.ui.componentsUI.ActionButton
@@ -29,13 +30,13 @@ import ru.churkin.health_diary.ui.componentsUI.TopBar
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MainViewScreen(
-    vm: MainViewModel = viewModel()
+    vm: MainViewModel = hiltViewModel()
 ) {
     val state: MainState by vm.state.collectAsState()
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
-            TopBar { }
+            TopBar(title = state.user?.name ?: "") { }
         },
         floatingActionButton = {
             ActionButton() {}

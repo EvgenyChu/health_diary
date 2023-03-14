@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
     ) {
         NavHost(navController = navController, startDestination = if (hasUser) "MainScreen" else "UserEnterScreen") {
             composable("MainScreen") { MainViewScreen() }
-            composable("UserEnterScreen") { UserEnterScreen() }
+            composable("UserEnterScreen") { UserEnterScreen(onNavigateToMain = { navController.navigate("MainScreen") }) }
         }
     }
 }

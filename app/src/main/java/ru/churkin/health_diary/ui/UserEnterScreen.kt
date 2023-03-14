@@ -21,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ru.churkin.health_diary.R
 import ru.churkin.health_diary.ui.componentsUI.*
@@ -28,7 +29,8 @@ import ru.churkin.health_diary.ui.componentsUI.*
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun UserEnterScreen(
-    vm: UserEnterViewModel = viewModel()
+    vm: UserEnterViewModel = hiltViewModel(),
+    onNavigateToMain: () -> Unit
 ) {
     val state: UserEnterState by vm.state.collectAsState()
     val focusManager = LocalFocusManager.current
@@ -96,7 +98,7 @@ fun UserEnterScreen(
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                         UserField(
-                            value = screen.age,
+                            value = screen.weight,
                             title = stringResource(id = R.string.user_weight),
                             modifier = Modifier.padding(horizontal = 16.dp),
                             keyboardActions = KeyboardActions(
@@ -107,7 +109,23 @@ fun UserEnterScreen(
                                 vm.updateWeight(it)
                             }
                         )
+                        Spacer(modifier = Modifier.height(16.dp))
                         Spacer(modifier = Modifier.weight(1f))
+                        EnterButton(
+                            text = stringResource(id = R.string.button_add),
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                        ) {
+                            vm.saveUser()
+                            onNavigateToMain()
+                        }
+                        Spacer(modifier = Modifier.height(16.dp))
+                        EnterButton(
+                            text = stringResource(id = R.string.button_clear),
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                        ) {
+                            vm.clearScreen()
+                        }
+                        Spacer(modifier = Modifier.height(24.dp))
                     }
                 }
             }

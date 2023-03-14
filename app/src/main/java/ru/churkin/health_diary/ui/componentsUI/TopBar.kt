@@ -9,16 +9,19 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ru.churkin.health_diary.R
 
 @Composable
 fun TopBar(
+    title: String,
     onClick: () -> Unit
 ) {
     TopAppBar(
@@ -28,6 +31,12 @@ fun TopBar(
         Row(
             modifier = Modifier.fillMaxWidth()
         ) {
+            Spacer(modifier = Modifier.weight(1f))
+            Text(
+                text = title,
+                color = MaterialTheme.colors.onPrimary,
+                style = MaterialTheme.typography.h1
+            )
             Spacer(modifier = Modifier.weight(1f))
             Icon(
                 painter = painterResource(id = R.drawable.ic_baseline_settings_24),

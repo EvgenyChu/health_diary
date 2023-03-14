@@ -7,7 +7,7 @@ import java.util.*
 
 @Entity(tableName = "users")
 data class UserEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     val userId: Int,
     val name: String,
     val age: Int,
