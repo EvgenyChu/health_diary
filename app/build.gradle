@@ -6,6 +6,16 @@ plugins {
 }
 
 android {
+    def buildNumFile = file("version.properties")
+    def buildNum = 0
+    if (buildNumFile.canRead()) {
+        def prop = new Properties()
+        prop.load(new FileInputStream(buildNumFile))
+        buildNum = prop['build'].toInteger() + 1
+        prop['build'] = buildNum.toString()
+        prop.store(buildNumFile.newWriter(), null)
+    }
+
     namespace 'ru.churkin.health_diary'
     compileSdk 33
 
@@ -14,7 +24,7 @@ android {
         minSdk 23
         targetSdk 33
         versionCode 1
-        versionName "1.0"
+        versionName "1.0 ($buildNum)"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -69,6 +79,13 @@ dependencies {
     //dagger
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
+    //datastore
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+
+    //moshi
+    implementation "com.squareup.moshi:moshi-kotlin:1.14.0"
+    implementation "com.squareup.moshi:moshi-adapters:1.14.0"
 
     //default
     implementation 'androidx.core:core-ktx:1.9.0'

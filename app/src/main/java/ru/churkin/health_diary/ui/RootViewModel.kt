@@ -25,6 +25,10 @@ class RootViewModel @Inject constructor(
             delay(3500)
             _state.update { it.copy(splashShown = false, hasUser = hasUser) }
         }
+
+        viewModelScope.launch {
+            repository.saveVersionAppAfterUpdate()
+        }
     }
 }
 
