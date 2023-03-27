@@ -2,7 +2,11 @@ package ru.churkin.health_diary.repositories
 
 import android.content.Context
 import android.content.pm.PackageManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.launch
 import ru.churkin.health_diary.App
 import ru.churkin.health_diary.BuildConfig
 import ru.churkin.health_diary.dataStore.AppDataStore
@@ -25,6 +29,7 @@ class UserRepository @Inject constructor (
     private val userDao: UserDao,
     private val dataStore: AppDataStore
 ) : IUserRepository{
+
     override suspend fun getActiveUser() = userDao.getActiveUser()
 
     override suspend fun getAllUsers() = userDao.getAll()
@@ -35,7 +40,6 @@ class UserRepository @Inject constructor (
         val versionSaveLast = dataStore.getVersionAppFlow().firstOrNull()
         val thisAppVersion =
             VersionApp(BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE.toString())
-
         when {
             isFirstInstall(App.applicationContext())
                     || versionSaveLast == null

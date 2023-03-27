@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import ru.churkin.health_diary.App
 import ru.churkin.health_diary.repositories.UserRepository
 import javax.inject.Inject
 
@@ -24,9 +25,6 @@ class RootViewModel @Inject constructor(
             val hasUser = repository.getAllUsers().isNotEmpty()
             delay(3500)
             _state.update { it.copy(splashShown = false, hasUser = hasUser) }
-        }
-
-        viewModelScope.launch {
             repository.saveVersionAppAfterUpdate()
         }
     }
