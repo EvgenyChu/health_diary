@@ -8,7 +8,9 @@ import com.squareup.moshi.Types
 import java.text.SimpleDateFormat
 import java.util.*
 
+fun String.toDate(): Date = SimpleDateFormat("dd.MM.yyyy", Locale.ROOT).parse(this)
 fun Date.formatDateForUser(): String = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ROOT).format(this)
+fun Date.formatDateWithoutTime(): String = SimpleDateFormat("dd.MM.yyyy", Locale.ROOT).format(this)
 
 inline fun <reified T> Moshi.parseList(jsonString: String?): List<T> {
     return jsonString?.let {

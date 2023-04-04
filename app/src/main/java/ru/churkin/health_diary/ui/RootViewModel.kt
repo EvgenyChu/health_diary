@@ -23,7 +23,7 @@ class RootViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             val hasUser = repository.getAllUsers().isNotEmpty()
-            delay(3500)
+            delay(1800)
             _state.update { it.copy(splashShown = false, hasUser = hasUser) }
             repository.saveVersionAppAfterUpdate()
         }

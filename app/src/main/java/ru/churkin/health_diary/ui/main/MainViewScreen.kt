@@ -30,16 +30,18 @@ import ru.churkin.health_diary.ui.componentsUI.TopBar
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MainViewScreen(
-    vm: MainViewModel = hiltViewModel()
+    vm: MainViewModel = hiltViewModel(),
+    onNavigateToEnterUser: () -> Unit,
+    onNavigateToPage: () -> Unit
 ) {
     val state: MainState by vm.state.collectAsState()
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
-            TopBar(title = state.user?.name ?: "") { }
+            TopBar(title = state.user?.name ?: "") { onNavigateToEnterUser() }
         },
         floatingActionButton = {
-            ActionButton() {}
+            ActionButton() { onNavigateToPage() }
         }
     ) {
         when (val screen = state.screen) {

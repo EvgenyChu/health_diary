@@ -14,6 +14,11 @@
     <string name="PUL_full_text">Частота сердечных сокращений (пульс)</string>
     <string name="text_empty_content">Для того, чтобы начать вести дневник наблюдения за артериальным давлением, добавьте первые измерения</string>
 
+    //PageScreen
+    <string name="date_measuring">Дата измерения давления</string>
+    <string name="time_measuring">Время измерения давления</string>
+    <string name="note_necessary">Примечание</string>
+
     //UserEnterScreen
     <string name="text_login">Добавьте пользователя</string>
     <string name="info_login">Потом вы сможете добавить или переключить пользователя в настройках.</string>

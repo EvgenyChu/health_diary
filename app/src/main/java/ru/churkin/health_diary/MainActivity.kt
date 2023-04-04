@@ -22,6 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import ru.churkin.health_diary.ui.*
+import ru.churkin.health_diary.ui.page.PageViewScreen
 import ru.churkin.health_diary.ui.theme.AppTheme
 
 @AndroidEntryPoint
@@ -54,9 +55,25 @@ class MainActivity : ComponentActivity() {
         navController: NavHostController,
         hasUser: Boolean
     ) {
-        NavHost(navController = navController, startDestination = if (hasUser) "MainScreen" else "UserEnterScreen") {
-            composable("MainScreen") { MainViewScreen() }
-            composable("UserEnterScreen") { UserEnterScreen(onNavigateToMain = { navController.navigate("MainScreen") }) }
+        NavHost(
+            navController = navController,
+            startDestination = if (hasUser) "MainScreen" else "UserEnterScreen"
+        ) {
+            composable("MainScreen") {
+                MainViewScreen(onNavigateToEnterUser = {
+                    navController.navigate(
+                        "UserEnterScreen"
+                    )
+                }, onNavigateToPage = { navController.navigate("PageViewScreen") })
+            }
+            composable("UserEnterScreen") {
+                UserEnterScreen(onNavigateToMain = {
+                    navController.navigate(
+                        "MainScreen"
+                    )
+                })
+            }
+            composable("PageViewScreen") { PageViewScreen() }
         }
     }
 }

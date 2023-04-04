@@ -112,7 +112,7 @@ fun UserEnterScreen(
                         Spacer(modifier = Modifier.height(16.dp))
                         Spacer(modifier = Modifier.weight(1f))
                         EnterButton(
-                            text = stringResource(id = R.string.button_add),
+                            text = R.string.button_add,
                             modifier = Modifier.padding(horizontal = 16.dp),
                         ) {
                             vm.saveUser()
@@ -120,7 +120,7 @@ fun UserEnterScreen(
                         }
                         Spacer(modifier = Modifier.height(16.dp))
                         EnterButton(
-                            text = stringResource(id = R.string.button_clear),
+                            text = R.string.button_clear,
                             modifier = Modifier.padding(horizontal = 16.dp),
                         ) {
                             vm.clearScreen()
